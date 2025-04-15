@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Details</title>
+    <!-- <link rel="stylesheet" href="hotel.css"> -->
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        <style>
+            .image-grid {
+                width: 40%;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 16px; 
+                position: relative;
+            }
+            
+            .grid-image {
+                width: 100%;
+                height: auto;
+                cursor: pointer; 
+            }
+            
+            .grid-image.large {
+                grid-column: span 3; /* Make the first image span all columns */
+                height: 300px; /* Set a fixed height for the large image */
+                object-fit: cover; /* Cover the area without distortion */
+            }
+            
+            .grid-image.small {
+                height: 200px; /* Set a fixed height for small images */
+                object-fit: cover; /* Cover the area without distortion */
+            }
+    
+            .toggle-button {
+                position: absolute; /* Position over the fourth image */
+                top: 50%; /* Center vertically */
+                left: 50%; /* Center horizontally */
+                transform: translate(-50%, -50%); /* Adjust position to center */
+                background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+                border: 1px solid #ccc; /* Border for visibility */
+                padding: 8px 12px; /* Padding for the button */
+                cursor: pointer; /* Change cursor to pointer */
+                z-index: 1; /* Ensure it appears above the image */
+            }
+    
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1000; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+            }
+    
+            .modal-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin: 15% auto; /* 15% from the top and centered */
+                width: 80%; /* Could be more or less, depending on screen size */
+            }
+    
+            .modal-content img {
+                width: 50%; /* Make images responsive */
+                height: auto; /* Maintain aspect ratio */
+                margin-bottom: 10px; /* Space between images */
+          
+            }
+    
+            .close {
+                color: white;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+    
+            .close:hover,
+            .close:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+
+</head>
+<body>
+    <nav class="Navbar">
+        <img class="logo" src="images/logo.png" alt="Logo" />
+      
+        <ul class="nav-links">
+          <li><a href="index.html#">Home</a></li>
+          <li><a href="index.html#rooms">Rooms</a></li>
+          <li><a href="index.html#Contact">Contact</a></li>
+          <li><a href="index.html#About">About</a></li>
+        </ul>
+      
+        <button class="menu-toggle" id="menuToggle">☰</button>
+      
+        <div class="search-container">
+          <input id="searchInput" class="nav-input" type="search" placeholder="Search hotel or location..." onkeyup="searchHotels()" />
+          <i class="fas fa-search search-icon"></i>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+      </nav>
+      
+      <nav class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="index.html#">Home</a></li>
+          <li><a href="index.html#rooms">Rooms</a></li>
+          <li><a href="index.html#Contact">Contact</a></li>
+          <li><a href="index.html#About">About</a></li>
+        </ul>
+        <button class="close-btn" id="closeBtn">×</button>
+      </nav>
+      <div class="overlay" id="overlay"></div>
+  
+    <header>
+        <h1 id="hotel-name">Hotel Name</h1>
+
+    </header>
+    <div class="hotel-img">
+        <div class="gallery">
+            <button class="prev">&#10094;</button>
+            
+            <!-- <img id="gallery-img" src="images/hotel1.jpg" alt="Hotel Image"> -->
+            <div class="image-grid">
+                <img src="img1.jpg" alt="Room 1" class="grid-image large">
+                <img src="img2.jpg" alt="Room 2" class="grid-image small">
+                <img src="img5.jpg" alt="Room 3" class="grid-image small">
+                <div style="position: relative;">
+                    <img src="img4.jpg" alt="Room 4" class="grid-image small">
+                    <div class="toggle-button" onclick="openModal()">+ Show More Images</div>
+                </div>
+            </div>
+ 
+            <button class="next">&#10095;</button>
+        </div>
+
+        <div class="map-container">
+            
+            <iframe id="hotel-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509198!2d144.9537353153163!3d-37.81627997975157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f0f0f0f%3A0x0!2sHotel%20Name!5e0!3m2!1sen!2sus!4v1616161616161!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+
+
+    <div class="hotel-info">
+        <p id="hotel-location">Location: Loading...</p>
+        <p id="hotel-price">Price: Loading...</p>
+        <p id="hotel-description">Description: Loading...</p>
+    </div>
+<hr>
+
+
+<div class="booking">
+    <div class="booking-container">
+        <h2>Book Your Stay</h2>
+        <div class="booking-form">
+            <label>Check-in: <input type="date" id="check-in" required></label>
+            <label>Check-out: <input type="date" id="check-out" required></label>
+            <label>Guests: <input type="number" id="guests" min="1" required></label>
+            <button id="generate-bill" >Proceed</button>       
+         <div id="error-message" class="error-message"></div>
+        </div>
+        
+        <div id="bill-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Booking Invoice</h2>
+                <div id="bill-content">
+                </div>
+                <button id="confirm-booking" data-message="Your booking details here">Confirm & Book via WhatsApp</button>
+                <button id="email" data-message="Your booking details here">Confirm & Book Via Email</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<hr>
+<div class="features">
+    <h2>Hotel Features</h2>
+    <div class="feature-list">
+        <div class="feature-item">
+            <i class="fas fa-snowflake"></i> Air Conditioning
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-wifi"></i> Free Wi-Fi
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-swimming-pool"></i> Swimming Pool
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-dumbbell"></i> Gym
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-utensils"></i> Restaurant
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-concierge-bell"></i> Room Service
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-parking"></i> Parking
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-spa"></i> Spa
+        </div>
+    </div>
+</div>
+
+<hr>
+
+    <div class="reviews">
+        <h2>Customer Reviews</h2>
+        <div class="review-container">
+            <!-- <div class="review">
+                <div class="review-header">
+                    <img src="images/john_doe.jpg" alt="Akash" class="reviewer-pic">
+                    <div class="reviewer-info">
+                        <p><strong>Akash</strong></p>
+                        <p class="reviewer-country">India</p>
+                    </div>
+                    <p class="review-time">2 hours ago</p>
+                </div>
+                <p>“Amazing stay! The service was excellent and the rooms were very clean.”</p>
+            </div>
+            <div class="review">
+                <div class="review-header">
+                    <img src="images/jane_smith.jpg" alt="sameer" class="reviewer-pic">
+                    <div class="reviewer-info">
+                        <p><strong>sameer</strong></p>
+                        <p class="reviewer-country">India</p>
+                    </div>
+                    <p class="review-time">1 day ago</p>
+                </div>
+                <p>“Loved the location! Close to all the attractions and very comfortable.”</p>
+            </div>
+            <div class="review">
+                <div class="review-header">
+                    <img src="images/emily_johnson.jpg" alt="Rakesh " class="reviewer-pic">
+                    <div class="reviewer-info">
+                        <p><strong>Rakesh</strong></p>
+                        <p class="reviewer-country">UK</p>
+                    </div>
+                    <p class="review-time">3 days ago</p>
+                </div>
+                <p>“The amenities were top-notch, especially the pool and spa. Highly recommend!”</p>
+            </div>
+            <div class="review">
+                <div class="review-header">
+                    <img src="images/michael_brown.jpg" alt="Kumar Raj" class="reviewer-pic">
+                    <div class="reviewer-info">
+                        <p><strong>Kumar Raj</strong></p>
+                        <p class="reviewer-country">India</p>
+                    </div>
+                    <p class="review-time">5 days ago</p>
+                </div>
+                <p>“Great value for the price. The staff was friendly and helpful.”</p>
+            </div> -->
+
+        </div>
+    </div>
+
+    <section id="About">
+        <div class="footer">
+            <div class="connect">
+                <h2>Connect With Us</h2>
+                <ul>
+                    <li><h4>Facebook</h4></li>
+                    <li><h4>Twitter</h4></li>
+                    <li><h4>Instagram</h4></li>
+                    <li><h4>WhatsApp</h4></li>
+                </ul>
+            </div>
+    
+            <div class="support">
+                <h2>Support</h2>
+                <ul>
+                    <li><a href="Faqs.html" target="_blank">FAQ's</a></li>
+                    <li><a href="#Rooms" target="_blank">Rooms</a></li>
+                    <li><h4>Contact</h4></li>
+                    <li><h4>Privacy & Policy</h4></li>
+                </ul>
+            </div>
+    
+            <div class="more">
+                <h2>More</h2>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#Rooms">Rooms</a></li>
+                    <li><a href="#Contact">Contact</a></li>
+                    <li><a href="#About">About</a></li>
+                </ul>
+            </div>
+    
+            <div class="additional">
+                <h2>Additional Info</h2>
+                <ul>
+                    <li><h4>Blog</h4></li>
+                    <li><h4>Testimonials</h4></li>
+                    <li><h4>Careers</h4></li>
+                    <li><h4>Terms of Service</h4></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr>
+    
+        <p class="copy"> @2025 ATWAH | Privacy Policy | Cookie Policy | Privacy Support</p>
+    </section>
+
+    <!-- <script src="hotel.js"></script> -->
+    <script src="script1.js"></script>
+
+</body>
+</html>
