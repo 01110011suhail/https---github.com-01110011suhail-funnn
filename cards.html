@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Details with Filters</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #FF385C;
+            --hover-color: #E31C5F;
+            --gray-color: #717171;
+            --light-color: #F7F7F7;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* Search Container */
+        .search-container {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: white;
+            padding: 12px;
+            border-bottom: 1px solid #EBEBEB;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #DDDDDD;
+            border-radius: 30px;
+            font-size: 16px;
+            -webkit-appearance: none;
+        }
+
+        .search-input::placeholder {
+            color: #aaa;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        /* Mobile Filters Toggle */
+        .mobile-filters-toggle {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .mobile-filters-panel {
+            display: none;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.3s ease-out;
+        }
+
+        .mobile-filters-panel.active {
+            transform: translateY(0);
+            display: block;
+        }
+
+        .mobile-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .mobile-backdrop.active {
+            display: block;
+        }
+
+        /* Desktop Filters */
+        .desktop-filters {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-filters-toggle,
+            .mobile-filters-panel,
+            .mobile-backdrop {
+                display: none;
+            }
+
+            .desktop-filters {
+                display: block;
+                padding: 12px;
+                background: white;
+                border-bottom: 1px solid #EBEBEB;
+            }
+
+            .filter-chip {
+                display: inline-flex;
+                align-items: center;
+                padding: 6px 12px;
+                background: white;
+                border: 1px solid #DDDDDD;
+                border-radius: 20px;
+                font-size: 14px;
+                margin: 4px;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+
+            .filter-chip.active {
+                background: var(--primary-color);
+                color: white;
+                border-color: var(--primary-color);
+            }
+        }
+
+        .room-card {
+            display: none; /* Initially hide all room cards */
+            padding: 16px;
+            margin: 8px 0;
+            background: white;
+            border: 1px solid #DDDDDD;
+            border-radius: 8px;
+        }
+
+        .room-card.visible {
+            display: block; /* Show only the filtered room cards */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Search Container -->
+<div class="search-container">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" class="search-input" placeholder="Search for rooms...">
+</div>
+
+<!-- Mobile Filters Toggle -->
+<div class="mobile-filters-toggle">
+    <span>Filter & Sort</span>
+    <i class="fas fa-sliders-h"></i>
+</div>
+
+<!-- Desktop Filters -->
+<div class="desktop-filters">
+    <button class="filter-chip active" data-filter="all">All</button>
+    <button class="filter-chip" data-filter="standard">Standard</button>
+    <button class="filter-chip" data-filter="superior">Superior</button>
+    <button class="filter-chip" data-filter="deluxe">Deluxe</button>
+    <button class="filter-chip" data-filter="suite">Suite</button>
+</div>
+
+<!-- Mobile Filters Panel -->
+<div class="mobile-filters-panel">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5>Filter & Sort</h5>
+        <button class="btn-close close-filters"><i class="fas fa-times"></i></button>
+    </div>
+    <div>
+        <h6>Room Category</h6>
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="standard">Standard</button>
+        <button class="filter-chip" data-filter="superior">Superior</button>
+        <button class="filter-chip" data-filter="deluxe">Deluxe</button>
+        <button class="filter-chip" data-filter="suite">Suite</button>
+    </div>
+
+<div class="mobile-backdrop"></div>
+
+<!-- Room Cards -->
+<div class="room-cards">
+    <div class="room-card" data-category="standard">Standard Room</div>
+    <div class="room-card" data-category="superior">Superior Room</div>
+    <div class="room-card" data-category="deluxe">Deluxe Room</div>
+    <div class="room-card" data-category="suite">Suite Room</div>
+    <div class="container" >
+        <div class="image-grid">
+            <img src="img/img1.jpg" alt="Room 1" class="grid-image large">
+            <img src="img/img2.jpg" alt="Room 2" class="grid-image small">
+            <img src="img/img5.jpg" alt="Room 3" class="grid-image small">
+            <div style="position: relative;">
+                <img src="img/img4.jpg" alt="Room 4" class="grid-image small">
+                <div class="toggle-button" onclick="openModal()">+</div>
+            </div>
+        </div>
+
+        <div class="details">
+            <h2>Mercure Makkah Aziziah
+            </h2>
+            <p><strong><i class="fa-solid fa-location-crosshairs"></i></strong> Mecca, Saudi Arabia</p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+                <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong> 
+                 <span class="dollar-sign">$150</span> per night
+            </p>
+            <p><strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong> Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast</p>
+
+ 
+            <div class="buttons">
+                <button class="more-details-button">
+                    More Details
+                </button>
+                <button class="more-details-button2">
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<div class="container" >
+    <div class="image-grid">
+        <img src="img/img1.jpg" alt="Room 1" class="grid-image large">
+        <img src="img/img2.jpg" alt="Room 2" class="grid-image small">
+        <img src="img/img5.jpg" alt="Room 3" class="grid-image small">
+        <div style="position: relative;">
+            <img src="img/img4.jpg" alt="Room 4" class="grid-image small">
+            <div class="toggle-button" onclick="openModal()">+</div>
+        </div>
+    </div>
+
+    <div class="details">
+        <h2>Mercure Makkah Aziziah
+        </h2>
+        <p><strong><i class="fa-solid fa-location-crosshairs"></i></strong> Mecca, Saudi Arabia</p>
+        <p><strong>Distance from Haram:</strong> 500 meters</p>
+        <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+        <p class="price">
+            <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong> 
+             <span class="dollar-sign">$150</span> per night
+        </p>
+        <p><strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong> Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast</p>
+
+
+        <div class="buttons">
+            <button class="more-details-button">
+                More Details
+            </button>
+            <button class="more-details-button2">
+                Book Now
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filtersPanel = document.querySelector('.mobile-filters-panel');
+        const backdrop = document.querySelector('.mobile-backdrop');
+        const filtersToggle = document.querySelector('.mobile-filters-toggle');
+        const closeFilters = document.querySelector('.close-filters');
+        const filterChips = document.querySelectorAll('.filter-chip');
+        const roomCards = document.querySelectorAll('.room-card');
+
+        function toggleFilters() {
+            filtersPanel.classList.toggle('active');
+            backdrop.classList.toggle('active');
+            document.body.style.overflow = filtersPanel.classList.contains('active') ? 'hidden' : '';
+        }
+
+        function filterRooms(filter) {
+            roomCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.classList.add('visible');
+                } else {
+                    card.classList.remove('visible');
+                }
+            });
+        }
+
+        filtersToggle.addEventListener('click', toggleFilters);
+        closeFilters.addEventListener('click', toggleFilters);
+        backdrop.addEventListener('click', toggleFilters);
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function () {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
+                filterRooms(filter);
+            });
+        });
+
+        // Apply the "All" filter on page load
+        filterRooms('all');
+    });
+</script>
+
+</body>
+</html>

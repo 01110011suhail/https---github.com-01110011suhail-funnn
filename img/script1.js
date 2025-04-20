@@ -183,8 +183,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    setupScrollButtons("room-listing-2", ".scroll-left", ".scroll-right");
+    setupScrollButtons(".room-listing-1", ".scroll-left", ".scroll-right");
+    setupScrollButtons(".room-listing-2", ".scroll-left1", ".scroll-right1");
 });
+
+    // setupScrollButtons(".room-listing-2", ".scroll-left1", ".scroll-right1");
+   document.addEventListener("DOMContentLoaded", function () {
+  // Select all room containers
+  document.querySelectorAll('.room-container').forEach((container) => {
+    const scrollLeftButton = container.querySelector('.scroll-left1');
+    const scrollRightButton = container.querySelector('.scroll-right1');
+    const roomListing = container.querySelector('.room-listing-2');
+
+    if (scrollLeftButton && scrollRightButton && roomListing) {
+      // Scroll left button functionality
+      scrollLeftButton.addEventListener('click', () => {
+        roomListing.scrollBy({
+          left: -300, // Adjust the scroll amount as needed
+          behavior: 'smooth',
+        });
+      });
+
+      // Scroll right button functionality
+      scrollRightButton.addEventListener('click', () => {
+        roomListing.scrollBy({
+          left: 300, // Adjust the scroll amount as needed
+          behavior: 'smooth',
+        });
+      });
+    }
+  });
+});
+
 
 function openModal(src) {
     const modal = document.getElementById("myModal");
@@ -486,78 +516,26 @@ emailBtn.addEventListener("click", function () {
   window.location.href = `BookingForm.html?data=${encodedMessage}`;
 });
 
+// document.querySelectorAll('.room-container').forEach((container) => {
+//   const scrollLeftButton = container.querySelector('.scroll-left');
+//   const scrollRightButton = container.querySelector('.scroll-right');
+//   const roomListing = container.querySelector('.room-listing');
 
+//   // Scroll left button functionality
+//   scrollLeftButton.addEventListener('click', () => {
+//     roomListing.scrollBy({
+//       left: -300, // Adjust the scroll amount as needed
+//       behavior: 'smooth',
+//     });
+//   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// document.getElementById("generate-bill").addEventListener("click", function () {
-//     const checkIn = document.getElementById("check-in").value;
-//     const checkOut = document.getElementById("check-out").value;
-//     const guests = document.getElementById("guests").value;
-//     const errorContainer = document.getElementById("error-message");
-//     const billModal = document.getElementById("bill-modal");
-//     const billContent = document.getElementById("bill-content");
-
-//     errorContainer.innerHTML = "";
-
-//     if (!checkIn) errorContainer.innerHTML += "<p>Please select a check-in date.</p>";
-//     if (!checkOut) errorContainer.innerHTML += "<p>Please select a check-out date.</p>";
-//     if (!guests || guests < 1) errorContainer.innerHTML += "<p>Please enter the number of guests.</p>";
-
-//     if (errorContainer.innerHTML !== "") return;
-
-//     const pricePerNight = 1000; 
-//     const startDate = new Date(checkIn);
-//     const endDate = new Date(checkOut);
-//     const nights = (endDate - startDate) / (1000 * 60 * 60 * 24);
-//     const totalPrice = nights * pricePerNight * guests;
-
-//     billContent.innerHTML = `
-//         <p><strong>Check-in:</strong> ${checkIn}</p>
-//         <p><strong>Check-out:</strong> ${checkOut}</p>
-//         <p><strong>Guests:</strong> ${guests}</p>
-//         <p><strong>Number of Nights:</strong> ${nights}</p>
-//         <p><strong>Price Per Night:</strong> ₹${pricePerNight}</p>
-//         <p><strong>Total Amount:</strong> ₹${totalPrice}</p>
-//     `;
-
-//     billModal.style.display = "block";
-
-//     document.getElementById("confirm-booking").setAttribute("data-message", 
-//         `Booking Details: 
-//         Check-in: ${checkIn}
-//         Check-out: ${checkOut}
-//         Guests: ${guests}
-//         Nights: ${nights}
-//         Total Price: ₹SAR{totalPrice}`);
-// });
-
-// document.querySelector(".close-btn").addEventListener("click", function () {
-//     document.getElementById("bill-modal").style.display = "none";
-// });
-
-// document.getElementById("confirm-booking").addEventListener("click", function () {
-//     const message = this.getAttribute("data-message");
-//     const encodedMessage = encodeURIComponent(message);
-//     window.location.href = `https://wa.me/1234567890?text=${encodedMessage}`;
-// });
-// document.getElementById("email").addEventListener("click", function () {
-//     console.log("Email button clicked"); 
-//     const message = this.getAttribute("data-message");
-
-//     window.location.href = `BookingForm.html`;
+//   // Scroll right button functionality
+//   scrollRightButton.addEventListener('click', () => {
+//     roomListing.scrollBy({
+//       left: 300, // Adjust the scroll amount as needed
+//       behavior: 'smooth',
+//     });
+//   });
 // });
 
 

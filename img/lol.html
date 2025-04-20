@@ -13,114 +13,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Lobster&display=swap" rel="stylesheet">
-    <style>
-        .image-grid {
-            width: 40%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns */
-            gap: 16px; /* Space between images */
-            position: relative; /* Position relative for absolute positioning of button */
-        }
-        
-        .grid-image {
-            width: 100%; /* Make images responsive */
-            height: auto; /* Maintain aspect ratio */
-            cursor: pointer; /* Change cursor to pointer for clickable images */
-        }
-        
-        .grid-image.large {
-            grid-column: span 3; /* Make the first image span all columns */
-            height: 300px; /* Set a fixed height for the large image */
-            object-fit: cover; /* Cover the area without distortion */
-        }
-        
-        .grid-image.small {
-            height: 200px; /* Set a fixed height for small images */
-            object-fit: cover; /* Cover the area without distortion */
-        }
-
-        .toggle-button {
-            position: absolute; /* Position over the fourth image */
-            top: 50%; /* Center vertically */
-            left: 50%; /* Center horizontally */
-            transform: translate(-50%, -50%); /* Adjust position to center */
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-            border: 1px solid #ccc; /* Border for visibility */
-            padding: 8px 12px; /* Padding for the button */
-            cursor: pointer; /* Change cursor to pointer */
-            z-index: 1; /* Ensure it appears above the image */
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
-        }
-
-        .modal-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: 15% auto; /* 15% from the top and centered */
-            width: 80%; /* Could be more or less, depending on screen size */
-        }
-
-        .modal-content img {
-            width: 50%; /* Make images responsive */
-            height: auto; /* Maintain aspect ratio */
-            margin-bottom: 10px; /* Space between images */
-      
-        }
-
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
-
   </head>
   <body>
-    <!-- <nav class="Navbar">
-      <img class="logo" src="images/logo.png" alt="Logo" />
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#rooms">Rooms</a></li>
-        <li><a href="#Contact">Contact</a></li>
-        <li><a href="#About">About</a></li>
-      </ul>
-      <div class="search-container">
-            <input id="searchInput" class="nav-input" type="search" placeholder="Search Location or Property Name">
-            <i class="fas fa-search search-icon" onclick="filterRooms()"></i>
-        </div>
-      <div class="search-container">
-        <input
-          id="searchInput"
-          class="nav-input"
-          type="search"
-          placeholder="Search hotel or location..."
-          onkeyup="searchHotels()"
-        />
-        <i class="fas fa-search search-icon"></i>
-        <div id="searchResults" class="search-results"></div>
-      </div>
-    </nav> -->
+
 
     <nav class="Navbar">
       <img class="logo" src="images/logo.png" alt="Logo" />
@@ -193,25 +88,13 @@
       <div class="room-container">
         <button class="scroll-btn scroll-left">&#10094;</button>
         <div class="room-listing" id="room-listing-1">
-          <!-- <div
-            class="room-item"
-            data-location="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
-            data-price="90 SAR"
-          >
-            <img src="images/hoteln1.jpg" alt="Hotel 1" />
-            <h2>Mercure Makkah Aziziah </h2>
-            <p>      <i class="fa-solid fa-location-dot"></i>
-              : Al Jamiah, Makkah 24243, Saudi Arabia </p>
-            <p>Price: 90 SAR / night</p>
-            <a href="hotel.html?id=1" class="view-details">View Details</a>
-          </div> -->
+
           <div
   class="room-item"
   data-location="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
   data-price="90 SAR"
 >
-  <!-- <img src="images/hoteln1.jpg" alt="Mercure Makkah Aziziah" /> -->
-
+  <img src="images/hoteln1.jpg" alt="Mercure Makkah Aziziah" />
   <div class="room-info">
     <h2>Mercure Makkah Aziziah</h2>
     <p class="location">
@@ -234,7 +117,7 @@ data-price="90 SAR"
 >
 <img src="images/hoteln2.jpg" alt="Mercure Makkah Aziziah" />
 <div class="room-info">
-  <h2>Mercure Makkah Aziziah</h2>
+  <h2>Voilet Hotel</h2>
   <p class="location">
     <i class="fa-solid fa-location-dot"></i>
     At Taif Road, Al Aziziyah, Mecca, Saudi Arabia
@@ -245,27 +128,18 @@ data-price="90 SAR"
 </div>
 
 
-          <!-- <div class="room-item" data-location="At Taif Road, Al Aziziyah, Mecca, Saudi Arabia, 24235" data-price="135 SAR">
-            <img src="images/hoteln2.jpg" alt="Hotel 2" />
-            <h2>Violet Hotel</h2>
-            <p>      <i class="fa-solid fa-location-dot"></i>
-              : At Taif Road, Al Aziziyah, Mecca, Saudi Arabia, 24235</p>
-            <p>Price: 135 SAR / night</p>
-            <a href="hotel.html?id=2" class="view-details">View Details</a>
-          </div> -->
 
 
 
 
 
-          <div
-class="room-item"
-data-location="Makkah Al-Mukarramah - Al-Aziziyah South, in front of Al-Muhaisni Traffic light""
+
+          <div class="room-item" data-location="Makkah Al-Mukarramah - Al-Aziziyah South, in front of Al-Muhaisni Traffic light"
 data-price="130 SAR"
 >
 <img src="images/hoteln3.jpg" alt="Mercure Makkah Aziziah" />
 <div class="room-info">
-  <h2>Mercure Makkah Aziziah</h2>
+  <h2>ATWAH Dar Al Sharif</h2>
   <p class="location">
     <i class="fa-solid fa-location-dot"></i>
     Makkah Al-Mukarramah - Al-Aziziyah South
@@ -325,6 +199,21 @@ data-price="130 SAR"
             </p>
             <p class="price">Price: <strong>90 SAR</strong> / night</p>
             <a href="hotel.html?id=4" class="view-details">View Details</a>
+          </div>
+          </div>
+                    <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
           </div>
           </div>
 
@@ -405,9 +294,84 @@ data-price="130 SAR"
 
 
       <div class="room-container">
-        <button class="scroll-btn scroll-left">&#10094;</button>
+        <button class="scroll-btn scroll-left1">&#10094;</button>
         <div class="room-listing" id="room-listing-2">
 
+          <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
+          </div>
+          </div>
+          <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
+          </div>
+          </div>
+          <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
+          </div>
+          </div>
+          <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
+          </div>
+          </div>
+          <div
+          class="room-item"
+          data-location="Ajyad, Makkah 24231, Saudi Arabia"
+          data-price="200 SAR"
+          >
+          <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+          <div class="room-info">
+            <h2>Fares Ajyad Hotel</h2>
+            <p class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              Ajyad, Makkah 24231, Saudi Arabia        </p>
+            <p class="price">Price: <strong>200 SAR</strong> / night</p>
+            <a href="hotel.html?id=5" class="view-details">View Details</a>
+          </div>
+          </div>
           <div
           class="room-item"
           data-location="Ajyad, Makkah 24231, Saudi Arabia"
@@ -460,7 +424,7 @@ data-price="130 SAR"
             <a href="hotel.html?id=8" class="view-details">View Details</a>
           </div> -->
         </div>
-        <button class="scroll-btn scroll-right">&#10095;</button>
+        <button class="scroll-btn scroll-right1">&#10095;</button>
       </div>
     </section>
 
@@ -540,26 +504,6 @@ data-price="130 SAR"
   >
     <i class="fab fa-whatsapp"></i>
   </a>
-  <script>
-    // Function to open the modal
-    function openModal() {
-        document.getElementById("myModal").style.display = "block";
-    }
-
-    // Function to close the modal
-    function closeModal() {
-        document.getElementById("myModal").style.display = "none";
-    }
-
-    // Close the modal when clicking outside of the modal content
-    window.onclick = function(event) {
-        const modal = document.getElementById("myModal");
-        if (event.target === modal) {
-            closeModal();
-        }
-    }
-</script>
-
     <script src="script1.js"></script>
   </body>
 </html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATW-Hospitality</title>
+    <link rel="stylesheet" href="img/style1.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .grid-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .grid-image:hover {
+            transform: scale(1.05);
+        }
+
+        .grid-image.large {
+            grid-column: span 3;
+            height: 200px;
+        }
+
+        .grid-image.small {
+            height: 100px;
+        }
+
+        /* Toggle Button */
+        .toggle-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-button:hover {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Details Section */
+        .details {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .details p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .rating {
+            color: gold;
+        }
+
+        .price {
+            font-size: 18px;
+            color: black;
+        }
+
+        .dollar-sign {
+            color: green;
+            font-size: 24px;
+            vertical-align: middle;
+        }
+
+        /* Buttons */
+        .buttons {
+            display: flex;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+
+        .more-details-button,
+        .more-details-button2 {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .more-details-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .more-details-button:hover {
+            background-color: #0056b3;
+        }
+
+        .more-details-button2 {
+            background-color: #ff0088;
+            color: white;
+        }
+
+        .more-details-button2:hover {
+            background-color: white;
+            color: #ff0088;
+            border: 1px solid #ff0088;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: 15% auto;
+            width: 80%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-content img {
+            width: 500px;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .modal-content img:hover {
+            transform: scale(1.05);
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #bbb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 95%;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-image.large {
+                height: 150px;
+            }
+
+            .grid-image.small {
+                height: 80px;
+            }
+
+            .details h2 {
+                font-size: 20px;
+            }
+
+            .details p {
+                font-size: 14px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .more-details-button,
+            .more-details-button2 {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-image.large {
+                height: 120px;
+            }
+
+            .grid-image.small {
+                height: 60px;
+            }
+
+            .details h2 {
+                font-size: 18px;
+            }
+
+            .details p {
+                font-size: 12px;
+            }
+
+            .more-details-button,
+            .more-details-button2 {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Your HTML content here -->
+    <div class="container">
+        <div class="image-grid">
+            <img src="img/img1.jpg" alt="Room 1" class="grid-image large">
+            <img src="img/img2.jpg" alt="Room 2" class="grid-image small">
+            <img src="img/img3.jpg" alt="Room 3" class="grid-image small">
+            <div style="position: relative;">
+                <img src="img/img4.jpg" alt="Room 4" class="grid-image small">
+                <div class="toggle-button" onclick="openModal(['img/img1.jpg', 'img/img2.jpg', 'img/img5.jpg', 'img/img4.jpg'])">+</div>
+            </div>
+        </div>
+        <div class="details">
+            <h2>Mercure Makkah Aziziah</h2>
+            <p><strong><i class="fa-solid fa-location-crosshairs"></i></strong> Mecca, Saudi Arabia</p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+                <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong> 
+                <span class="dollar-sign">$150</span> per night
+            </p>
+            <p><strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong> Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast</p>
+            <div class="buttons">
+                <a href="hotel.html?id=1" class="view-details">View Details</a>
+                <button class="more-details-button2">Book Now</button>
+            </div>
+        </div>
+    </div>
+    <!-- Your HTML content here -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalContent">
+            <!-- Images will be dynamically inserted here -->
+        </div>
+    </div>
+    <script>
+        function openModal(images) {
+            const modalContent = document.getElementById("modalContent");
+            modalContent.innerHTML = ''; // Clear previous images
+            images.forEach(image => {
+                const imgElement = document.createElement("img");
+                imgElement.src = image;
+                imgElement.alt = "Room Image";
+                modalContent.appendChild(imgElement);
+            });
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("myModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
