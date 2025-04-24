@@ -431,7 +431,7 @@
 
     .modal-content img {
       width: 300px;
-      height: 200px;
+      height: auto;
       border-radius: 5px;
       transition: transform 0.3s;
     }
@@ -794,12 +794,11 @@
     border-radius: 12px;
     overflow: hidden;
     width: 320px;
-    min-width: 1000px;
-    box-shadow: 0 4px 10px rgba(220, 10, 10, 0.7);
-    transition: transform 0.3s ease, box-shadow 0.1s ease;
+    min-width: 1020px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    /* flex-direction: column; */
-
+    flex-direction: row;
   }
   
   .room-item:hover {
@@ -1052,7 +1051,26 @@
     display: none; 
   }
   
-
+  .room-item {
+    flex: 0 0  auto;
+    width: 300px; 
+    /* border: 1px solid #fd1010; */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    /* text-align: center; */
+  
+  }
+  .room-item p{
+    font-size: 10px;
+    text-align: right;
+  }
+  .room-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
   
   .scroll-btn {
     position: absolute;
@@ -1068,7 +1086,6 @@
     width: 40px;
     height: 40px;
   }
-  
   
   .scroll-left {
     left: 90px;
@@ -1513,401 +1530,6 @@
       font-size: 0.8em; 
       color: #aaa; 
       margin-left: 10px; 
-  }
-
-      .room-item {
-      display: flex;
-      flex-direction: row;
-      max-width: 800px;
-      margin: auto;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      transition: transform 0.3s;
-
-    }
-
-    .container:hover {
-      transform: scale(1.02);
-    }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 10px;
-      width: 100%;
-    }
-
-    .grid-image {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 5px;
-      transition: transform 0.3s;
-    }
-
-    .grid-image:hover {
-      transform: scale(1.05);
-    }
-    .grid-image.large {
-      grid-column: span 3;
-      height: 200px;
-      width: 440px;
-    }
-
-    .grid-image.small {
-      height: 100px;
-      width: 130px;
-    }
-
-    .toggle-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-
-    .toggle-button:hover {
-      background-color: rgba(255, 255, 255, 1);
-    }
-
-    .details {
-      display: flex;
-      flex-direction: column;
-      background: #f3f1f1;
-      padding: 20px;
-    }
-
-    .details h2 {
-      margin: 0;
-      font-size: 24px;
-      color: #333;
-      flex: 1;
-    }
-
-    .details p {
-      margin: 5px 0;
-      color: #666;
-      font-size: 16px;
-      text-align: left;
-    }
-
-    .rating {
-      color: gold;
-    }
-
-    .price {
-      font-size: 18px;
-      color: black;
-    }
-
-    .dollar-sign {
-      color: green;
-      font-size: 24px;
-      vertical-align: middle;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-evenly;
-      margin-top: 20px;
-    }
-
-    .more-details-button,
-    .more-details-button2 {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
-    }
-
-    .more-details-button {
-      background-color: #007bff;
-      color: white;
-    }
-
-    .more-details-button:hover {
-      background-color: #0056b3;
-    }
-
-    .more-details-button2 {
-      background-color: #ff0088;
-      color: white;
-    }
-
-    .more-details-button2:hover {
-      background-color: white;
-      color: #ff0088;
-      border: 1px solid #ff0088;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      overflow: auto;
-    }
-
-    .modal-content {
-      margin: 15% auto;
-      width: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .modal-content img {
-      width: 300px;
-      height: auto;
-      border-radius: 5px;
-      transition: transform 0.3s;
-    }
-
-    .modal-content img:hover {
-      transform: scale(1.05);
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      color: white;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: #bbb;
-    }
-
-  
-    
-    .room-section {
-        margin-bottom: 20px;
-        width: 100%;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); 
-      }
-
-    .room-listing-title,.room-listing-title1 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        text-align: center;
-        color: #ff0088;
-        text-transform: uppercase;
-        font-family: 'Audiowide', sans-serif;
-        letter-spacing: 4px;
-
-        text-shadow: 1px 1px 2px rgba(247, 241, 241, 0.9); 
-    }
-    .room-listing-title1{
-      color: #0056b3;
-    }
-
-    .room-container {
-        display: flex;
-        /* flex-direction: column; */
-        gap: 10px;
-    }
-
-    .scroll-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-        color: #333;
-    }
-
-    .scroll-btn:hover {
-        color: #007bff;
-    }
-
-    /* html, body {
-      width: 100%;
-      overflow-x: hidden;
-  } */
-
-
-  .container:hover {
-      transform: scale(1.02);
-  }
-
-  .image-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 10px;
-  }
-
-  .grid-image {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      border-radius: 5px;
-      transition: transform 0.3s;
-      width: 500px;
-
-  }
-
-  .grid-image:hover {
-      transform: scale(1.05);
-  }
-
-  .grid-image.large {
-      grid-column: span 3;
-      height: 200px;
-  }
-
-  .grid-image.small {
-      height: 100px;
-  }
-
-  .toggle-button {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ccc;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-  }
-
-  .toggle-button:hover {
-      background-color: rgba(255, 255, 255, 1);
-  }
-
-  .details {
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-  }
-
-  .details h2 {
-      margin: 0;
-      font-size: 24px;
-      color: #333;
-  }
-
-  .details p {
-      margin: 5px 0;
-      color: #666;
-      font-size: 16px;
-  }
-
-  .rating {
-      color: gold;
-  }
-
-  .price {
-      font-size: 18px;
-      color: black;
-  }
-
-  .dollar-sign {
-      color: green;
-      font-size: 24px;
-      vertical-align: middle;
-  }
-
-  .buttons {
-      display: flex;
-      justify-content: space-evenly;
-      margin-top: 20px;
-  }
-
-  .more-details-button,
-  .more-details-button2 {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
-  }
-
-  .more-details-button {
-      background-color: #007bff;
-      color: white;
-  }
-
-  .more-details-button:hover {
-      background-color: #0056b3;
-  }
-
-  .more-details-button2 {
-      background-color: #ff0088;
-      color: white;
-  }
-
-  .more-details-button2:hover {
-      background-color: white;
-      color: #ff0088;
-      border: 1px solid #ff0088;
-  }
-
-  .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      overflow: auto;
-  }
-
-  .modal-content {
-      margin: 15% auto;
-      width: 80%;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-  }
-
-  .modal-content img {
-      width: 500px;
-      height: auto;
-      border-radius: 5px;
-      transition: transform 0.3s;
-  }
-
-  .modal-content img:hover {
-      transform: scale(1.05);
-  }
-
-  .close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      color: white;
-      cursor: pointer;
-  }
-
-  .close:hover {
-      color: #bbb;
   }
   
   

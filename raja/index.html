@@ -1,0 +1,1621 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATW-Hospitality</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <style>
+
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 10px;
+      width: 440px;
+
+    }
+
+    .grid-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.3s;
+    }
+
+    .grid-image:hover {
+      transform: scale(1.05);
+    }
+    .grid-image.large {
+      grid-column: span 3;
+      height: 200px;
+      width: 420px;
+    }
+
+    .grid-image.small {
+      height: 100px;
+      width: 130px;
+    }
+
+    .toggle-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .toggle-button:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      background: #f3f1f1;
+    }
+
+    .details h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+      flex: 1;
+    }
+
+    .details p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 16px;
+      text-align: left;
+    }
+
+    .rating {
+      color: gold;
+    }
+
+    .price {
+      font-size: 18px;
+      color: black;
+    }
+
+    .dollar-sign {
+      color: green;
+      font-size: 24px;
+      vertical-align: middle;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 20px;
+    }
+
+    .more-details-button,
+    .more-details-button2 {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .more-details-button {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .more-details-button:hover {
+      background-color: #0056b3;
+    }
+
+    .more-details-button2 {
+      background-color: #ff0088;
+      color: white;
+    }
+
+    .more-details-button2:hover {
+      background-color: white;
+      color: #ff0088;
+      border: 1px solid #ff0088;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow: auto;
+    }
+
+    .modal-content {
+      margin: 15% auto;
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .modal-content img {
+      width: 300px;
+      height: auto;
+      border-radius: 5px;
+      transition: transform 0.3s;
+    }
+
+    .modal-content img:hover {
+      transform: scale(1.05);
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #bbb;
+    }
+
+  
+    
+    .room-section {
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); 
+      }
+
+    .room-listing-title,.room-listing-title1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #ff0088;
+        text-transform: uppercase;
+        font-family: 'Audiowide', sans-serif;
+        letter-spacing: 4px;
+
+        text-shadow: 1px 1px 2px rgba(247, 241, 241, 0.9); 
+    }
+    .room-listing-title1{
+      color: #0056b3;
+    }
+
+    .room-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .scroll-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    .scroll-btn:hover {
+        color: #007bff;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+  }
+
+
+  .container:hover {
+      transform: scale(1.02);
+  }
+
+  .image-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 10px;
+  }
+
+  .grid-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 5px;
+      transition: transform 0.3s;
+  }
+
+  .grid-image:hover {
+      transform: scale(1.05);
+  }
+
+  .grid-image.large {
+      grid-column: span 3;
+      height: 200px;
+  }
+
+  .grid-image.small {
+      height: 100px;
+  }
+
+  .toggle-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+  }
+
+  .toggle-button:hover {
+      background-color: rgba(255, 255, 255, 1);
+  }
+
+  .details {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .details h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+  }
+
+  .details p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 16px;
+  }
+
+  .rating {
+      color: gold;
+  }
+
+  .price {
+      font-size: 18px;
+      color: black;
+  }
+
+  .dollar-sign {
+      color: green;
+      font-size: 24px;
+      vertical-align: middle;
+  }
+
+  .buttons {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 20px;
+  }
+
+  .more-details-button,
+  .more-details-button2 {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+  }
+
+  .more-details-button {
+      background-color: #007bff;
+      color: white;
+  }
+
+  .more-details-button:hover {
+      background-color: #0056b3;
+  }
+
+  .more-details-button2 {
+      background-color: #ff0088;
+      color: white;
+  }
+
+  .more-details-button2:hover {
+      background-color: white;
+      color: #ff0088;
+      border: 1px solid #ff0088;
+  }
+
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow: auto;
+  }
+
+  .modal-content {
+      margin: 15% auto;
+      width: 80%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+  }
+
+
+
+  .modal-content img:hover {
+      transform: scale(1.05);
+  }
+
+  .close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+  }
+
+  .close:hover {
+      color: #bbb;
+  }
+
+  @media (max-width: 768px) {
+
+    .room-listing{
+      width: 100%;
+    }
+    .room-container {
+        flex-direction: column;
+    }
+      .room-item {
+          flex-direction: column;
+          max-width: 70%;
+      }
+
+      .image-grid {
+          grid-template-columns: repeat(2, 1fr);
+          width: 95px;
+      }
+
+      .grid-image.large {
+          height: 150px;
+          width: 200px;
+      }
+
+      .grid-image.small {
+          height: 60px;
+      }
+      .details{
+        width: 212px;
+
+      }
+
+      .details h2 {
+          font-size: 10px;
+      }
+
+      .details p {
+          font-size: 14px;
+      }
+
+      .buttons {
+          flex-direction: column;
+          gap: 10px;
+      }
+
+      .more-details-button,
+      .more-details-button2 {
+          width: 100%;
+      }
+  }
+
+  @media (max-width: 480px) {
+
+    .details{
+      padding: 10px;
+      text-align: center;
+    }
+      .grid-image.large {
+          height: 120px;
+      }
+
+      .grid-image.small {
+        width: 60px;
+          height: 60px;
+      }
+
+      .details h2 {
+          font-size: 15px;
+          margin-top: -20px;
+
+      }
+
+      .details p {
+          font-size: 8px;
+          width: 200px;
+          text-align: center;
+
+      }
+      .fa-caret-up{
+        font-size: 8px;
+        width: 10%;
+      }
+      .amenities{
+        display: none;
+      }
+
+
+
+      .more-details-button,
+      .more-details-button2 {
+        margin-top: 0;
+          font-size: 10px;
+          width: 70%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+
+      }
+
+      .scroll-btn{
+        padding: 90px;
+      }
+      .view-details{
+        width: 70%;
+        font-size: 10px;
+      }
+  }
+    
+  </style>
+  <body>
+    <nav class="Navbar">
+      <img class="logo" src="images/logo.png" alt="Logo" />
+
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <li><a href="#About">About</a></li>
+      </ul>
+
+      <button class="menu-toggle" id="menuToggle">☰</button>
+
+      <div class="search-container">
+        <input
+          id="searchInput"
+          class="nav-input"
+          type="search"
+          placeholder="Search hotel or location..."
+          onkeyup="searchHotels()"
+        />
+        <i class="fas fa-search search-icon"></i>
+        <div id="searchResults" class="search-results"></div>
+      </div>
+    </nav>
+
+    <nav class="sidebar" id="sidebar">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#rooms">Rooms</a></li>
+        <li><a href="#Contact">Contact</a></li>
+        <li><a href="#About">About</a></li>
+      </ul>
+      <button class="close-btn" id="closeBtn">×</button>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+
+    <header class="Home" id="home">
+      <div class="Home-details">
+        <h1>ATWAH INTERNATIONAL <br /><span>Feels Like a Home</span></h1>
+        <p>
+          Find the perfect room for your next trip, whether for business or
+          leisure.
+        </p>
+        <button class="Home-btn" type="button">Quick Book</button>
+      </div>
+      <!-- <a
+        href="https://wa.me/966576989556?text=السلام%20عليكم%20ورحمة%20الله%20وبركاته%20%20I%20have%20an%20enquiry%20regarding%20room%20bookings.%20Could%20you%20please%20assist%20me?%20جزاك%20الله%20خيرا"
+        class="whatsapp-button"
+        target="_blank"
+      >
+        <i class="fab fa-whatsapp"></i>
+      </a> -->
+    </header>
+
+    <section class="Rooms" id="rooms">
+      <h1>Available Rooms</h1>
+      <div class="filters">
+        <select id="locationFilter" onchange="filterRooms()">
+          <option value="">All Locations</option>
+          <option
+            value="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
+          >
+            6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia
+          </option>
+          <option value="At Taif Road, Al Aziziyah, Mecca, Saudi Arabia, 24235">
+            At Taif Road, Al Aziziyah, Mecca, Saudi Arabia, 24235
+          </option>
+          <option
+            value="Makkah Al-Mukarramah - Al-Aziziyah South, in front of Al-Muhaisni Traffic light."
+          >
+            Makkah Al-Mukarramah - Al-Aziziyah South, in front of Al-Muhaisni
+            Traffic light.
+          </option>
+          <option
+            value="Off All Sitten Street-Facing Prophet Masjid -King Fahd Gate(23), 30921 Medina, Saudi Arabia"
+          >
+            Off All Sitten Street-Facing Prophet Masjid -King Fahd Gate(23),
+            30921 Medina, Saudi Arabia
+          </option>
+          <option
+            value="CRCJ+GXC, King Abdul Aziz Rd, Ajyad, Makkah 24231, Saudi Arabia"
+          >
+            CRCJ+GXC, King Abdul Aziz Rd, Ajyad, Makkah 24231, Saudi Arabia
+          </option>
+        </select>
+        <select id="priceFilter" onchange="filterRooms()">
+          <option value="">All Prices</option>
+          <option value="1000">Below 1000</option>
+          <option value="2000">1000 - 2000</option>
+          <option value="3000">Above 2000</option>
+        </select>
+      </div>
+      <br />
+
+      <div class="room-section">
+        <h2 class="room-listing-title">Mecca</h2>
+    
+      <div class="room-container">
+
+        <button class="scroll-btn scroll-left">&#10094;</button>
+        
+        <div class="room-listing" id="room-listing-1">
+          <div
+            class="room-item"
+            data-location="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
+            data-price="90 SAR"
+          >
+            <div class="image-grid">
+              <img
+                src="images/hoteln1.jpg"
+                alt="Room 1"
+                class="grid-image large"
+              />
+              <img
+                src="images/mercure2.jpg"
+                alt="Room 2"
+                class="grid-image small"
+              />
+              <img
+                src="images/mercure3.jpg"
+                alt="Room 3"
+                class="grid-image small"
+              />
+              <div style="position: relative">
+                <img
+                  src="images/mercure4.jpg"
+                  alt="Room 4"
+                  class="grid-image small"
+                />
+                <div
+                  class="toggle-button"
+                  onclick="openModal([ 'images/hoteln1.jpg', 'images/mercure1.jpg', 'images/mercure2.jpg', 'images/mercure3.jpg', 'images/mercure4.jpg'])"
+                >
+                  +
+                </div>
+              </div>
+            </div>
+            <div class="details">
+              <h2>Mercure Makkah Aziziah</h2>
+              <p>
+                <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+                Mecca, Saudi Arabia
+              </p>
+              <p><strong>Distance from Haram:</strong> 500 meters</p>
+              <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+              <p class="price">
+                <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+                <span class="dollar-sign">90 SAR</span> per night
+              </p>
+              <p class="amenities">
+                <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+                Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+              </p>
+              <div class="buttons">
+                <a href="hotel.html?id=1" class="view-details">View Details</a>
+                <button class="more-details-button2">Book Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div
+  class="room-item"
+  data-location="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
+  data-price="90 SAR"
+>
+  <img src="images/hoteln1.jpg" alt="Mercure Makkah Aziziah" />
+  <div class="room-info">
+    <h2>Mercure Makkah Aziziah</h2>
+    <p class="location">
+      <i class="fa-solid fa-location-dot"></i>
+      Al Jamiah, Makkah 24243, Saudi Arabia
+    </p>
+    <p class="price">Price: <strong>90 SAR</strong> / night</p>
+    <a href="hotel.html?id=1" class="view-details">View Details</a>
+  </div>
+</div> -->
+
+          <div
+            class="room-item"
+            data-location="6541 Koulliat Al Banat, Al Jamiah, Makkah 24243, Saudi Arabia"
+            data-price="90 SAR"
+          >
+            <div class="image-grid">
+              <img
+                src="images/hoteln2.jpg"
+                alt="Room 1"
+                class="grid-image large"
+              />
+              <img
+                src="images/voilet1.jpg"
+                alt="Room 2"
+                class="grid-image small"
+              />
+              <img
+                src="images/voilet2.jpg"
+                alt="Room 3"
+                class="grid-image small"
+              />
+              <div style="position: relative">
+                <img
+                  src="images/mercure4.jpg"
+                  alt="Room 4"
+                  class="grid-image small"
+                />
+                <div
+                  class="toggle-button"
+                  onclick="openModal([ 'images/hoteln2.jpg', 'images/voilet1.jpg', 'images/voilet2.jpg', 'images/voilet3.jpg', 'images/voilet1.jpg', 'images/voilet5.jpg', 'images/voilet6.jpg', 'images/voilet7.jpg'])"
+                >
+                  +
+                </div>
+              </div>
+            </div>
+            <div class="details">
+              <h2>Voilet Hotel</h2>
+              <p>
+                <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+                Mecca, Saudi Arabia
+              </p>
+              <p><strong>Distance from Haram:</strong> 500 meters</p>
+              <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+              <p class="price">
+                <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+                <span class="dollar-sign">135 SAR</span> per night
+              </p>
+              <p>
+                <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+                Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+              </p>
+              <div class="buttons">
+                <a href="hotel.html?id=2" class="view-details">View Details</a>
+                <button class="more-details-button2">Book Now</button>
+              </div>
+            </div>
+          </div>
+          <!-- <img src="images/hoteln2.jpg" alt="Mercure Makkah Aziziah" />
+<div class="room-info">
+  <h2>Voilet Hotel</h2>
+  <p class="location">
+    <i class="fa-solid fa-location-dot"></i>
+    At Taif Road, Al Aziziyah, Mecca, Saudi Arabia
+  </p>
+  <p class="price">Price: <strong>135 SAR</strong> / night</p>
+  <a href="hotel.html?id=2" class="view-details">View Details</a>
+</div>
+</div>
+ -->
+
+          <div
+            class="room-item"
+            data-location="Makkah Al-Mukarramah - Al-Aziziyah South, in front of Al-Muhaisni Traffic light"
+            data-price="130 SAR"
+          >
+            <div class="image-grid">
+              <img
+                src="images/hoteln3.jpg"
+                alt="Room 1"
+                class="grid-image large"
+              />
+              <img
+                src="images/atwah1.jpg"
+                alt="Room 2"
+                class="grid-image small"
+              />
+              <img
+                src="images/atwah2.jpg"
+                alt="Room 3"
+                class="grid-image small"
+              />
+              <div style="position: relative">
+                <img
+                  src="images/atwah3.jpg"
+                  alt="Room 4"
+                  class="grid-image small"
+                />
+                <div
+                  class="toggle-button"
+                  onclick="openModal([ 'images/hoteln3.jpg', 'images/atwah1.jpg', 'images/atwah2.jpg', 'images/atwah3.jpg', 'images/atwah4.jpg', 'images/atwah5.jpg', 'images/atwah6.jpg', 'images/atwah7.jpg'])"
+                >
+                  +
+                </div>
+              </div>
+            </div>
+            <div class="details">
+              <h2>ATWAH Dar Al Sharif</h2>
+              <p>
+                <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+                Mecca, Saudi Arabia
+              </p>
+              <p><strong>Distance from Haram:</strong> 500 meters</p>
+              <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+              <p class="price">
+                <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+                <span class="dollar-sign">130 SAR</span> per night
+              </p>
+              <p>
+                <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+                Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+              </p>
+              <div class="buttons">
+                <a href="hotel.html?id=3" class="view-details">View Details</a>
+                <button class="more-details-button2">Book Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="room-item"
+            data-location="Off All Sitten Street-Facing Prophet Masjid -King Fahd Gate(23), 30921 Medina, Saudi Arabia"
+            data-price="90 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/hoteln4.jpg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/ATWA1.jpg"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/ATWA2.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/ATWA3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/hoteln3.jpg', 'images/atwah1.jpg', 'images/atwah2.jpg', 'images/atwah3.jpg', 'images/atwah4.jpg', 'images/atwah5.jpg', 'images/atwah6.jpg', 'images/atwah7.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>Hotel ATWAH DAR AL BARKAWI</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Mecca, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">90 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=4" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div>
+          <!-- </div>
+            <img src="images/hoteln4.jpg" alt="Mercure Makkah Aziziah" />
+            <div class="room-info">
+              <h2 class="room-title">Hotel ATWAH DAR AL BARKAWI</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Meccca ,Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>90 SAR</strong> / night</p>
+              <a href="hotel.html?id=4" class="view-details">View Details</a>
+            </div> -->
+          </div>
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="200 SAR"
+          >
+          
+          <div class="image-grid">
+            <img
+              src="images/hotel5.jpeg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/Fares1.jpg"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/Fares2.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/hotel5.jpeg', 'images/Fares1.jpg', 'images/Fares2.jpg', 'images/Fares3.jpg', 'images/Fares4.jpg', 'images/Fares5.jpg', 'images/Fares6.jpg', 'images/Fares7.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>Fares Ajyad Hotel</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Mecca, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">200 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div>  
+          </div>
+            <!-- <img src="images/hotel5.jpeg" alt="Mercure Makkah Aziziah" />
+            <div class="room-info">
+              <h2>Fares Ajyad Hotel</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Ajyad, Makkah 24231, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>200 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+
+          <!-- <div
+  class="room-item"
+  data-location="Off All Sitten Street-Facing Prophet Masjid -King Fahd Gate(23), 30921 Medina, Saudi Arabia"
+  data-price="90 SAR"
+>
+  <img src="images/hoteln4.jpg" alt="Hotel 4" class="room-img" />
+  <div class="room-content">
+    <h2 class="room-title">Hotel ATWAH DAR AL BARKAWI</h2>
+    <p class="room-location">
+      <i class="fa-solid fa-location-dot"></i>
+      Off All Sitten Street-Facing Prophet Masjid, 30921 Medina, Saudi Arabia
+    </p>
+    <p class="room-price">
+      <i class="fa-solid fa-hand-holding-dollar"></i>
+      90 SAR / night
+    </p>
+    <a href="hotel.html?id=4" class="view-details">View Details</a>
+  </div>
+</div> -->
+          <!-- <div
+  class="room-item"
+  data-location="Off All Sitten Street-Facing Prophet Masjid -King Fahd Gate(23), 30921 Medina, Saudi Arabia"
+  data-price="90 SAR"
+>
+  <img src="images/hoteln4.jpg" alt="Hotel 4" class="room-img" />
+  <div class="room-content">
+    <h2 class="room-title">Hotel ATWAH DAR AL BARKAWI</h2>
+    <p class="room-location">
+      <i class="fa-solid fa-location-dot"></i>
+      Off All Sitten Street-Facing Prophet Masjid, 30921 Medina, Saudi Arabia
+    </p>
+    <p class="room-price">
+      <i class="fa-solid fa-hand-holding-dollar"></i>
+      90 SAR / night
+    </p>
+    <a href="hotel.html?id=4" class="view-details">View Details</a>
+  </div>
+</div> -->
+
+          <!-- <div
+            class="room-item"
+            data-location="Mecca, Saudi Arabia"
+            data-price="3000"
+          >
+            <img src="images/mecca-hotel.jpg" alt="Mecca Hotel" />
+            <h2>Luxury Mecca Stay</h2>
+            <p>Location: Mecca, Saudi Arabia</p>
+            <p>Price: 3000 / night</p>
+            <a href="hotel.html?id=9" class="view-details">View Details</a>
+          </div> -->
+        </div>
+        <button class="scroll-btn scroll-right">&#10095;</button>
+      </div>
+      </div>
+
+      <!-- <div
+      class="room-item"
+      data-location="Ajyad, Makkah 24231, Saudi Arabia"
+      data-price="200 SAR"
+      >
+      <img src="images/hoteln5.jpg" alt="Mercure Makkah Aziziah" />
+      <div class="room-info">
+        <h2>Fares Ajyad Hotel</h2>
+        <p class="location">
+          <i class="fa-solid fa-location-dot"></i>
+          Ajyad, Makkah 24231, Saudi Arabia        </p>
+        <p class="price">Price: <strong>200 SAR</strong> / night</p>
+        <a href="hotel.html?id=4" class="view-details">View Details</a>
+      </div>
+      </div> -->
+
+      <div class="room-section">
+        <h2 class="room-listing-title1">Madina</h2>
+      <div class="room-container">
+        <button class="scroll-btn scroll-left">&#10094;</button>
+        <div class="room-listing" id="room-listing-2">
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="380 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/SHAZArp1.jpg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/SHAZArp2.jpg"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/SHAZArp1.jpg', 'images/SHAZArp2.jpg', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>SHAZA REGENCY PLAZA</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">380 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=6" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div>  
+
+            <!-- <img src="images/SHAZArp1.jpg" alt="SHAZA REGENCY PLAZA" />
+            <div class="room-info">
+              <h2>SHAZA REGENCY PLAZA</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>380 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div> -->
+          </div>
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="200 SAR"
+          >
+
+          <div class="image-grid">
+            <img
+              src="images/GPB.png"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>GRAND PLAZA BADR ALMAQAM</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">380 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=7" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div> 
+
+
+            <!-- <img src="images/GPB.png" alt="GRAND PLAZA BADR ALMAQAM" />
+            <div class="room-info">
+              <h2>GRAND PLAZA BADR ALMAQAM</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+
+              <p class="price">Price: <strong>380 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="300 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/GPB.png"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>GRAND PLAZA ALMADINA</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">300 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=8" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div>
+            <!-- <img src="images/GPM.png" alt="GRAND PLAZA ALMADINA" />
+            <div class="room-info">
+              <h2>GRAND PLAZA ALMADINA</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>300 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="200 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/Maysan.jpeg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>MAYSAN REHAB ELMYSK</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">260 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=9" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div>
+
+          
+            <!-- <img src="images/Maysan.jpeg" alt="MAYSAN REHAB ELMYSK" />
+            <div class="room-info">
+              <h2>MAYSAN REHAB ELMYSK</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>260 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="200 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/Maysan.jpeg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>MAYSAN ALTAQWA NEW HOTEL</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">225 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=10" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div>
+<!--           
+            <img src="images/" alt="MAYSAN ALTAQWA NEW HOTEL" />
+            <div class="room-info">
+              <h2>MAYSAN ALTAQWA NEW HOTEL</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>225 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="200 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/plainOUD.jpg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>PLAZA INN OHUD</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">200 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=10" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div>
+            <!-- <img src="images/plainOUD.jpg" alt="PLAZA INN OHUD" />
+            <div class="room-info">
+              <h2>PLAZA INN OHUD</h2>
+              <p class="location">
+                <i class="fa-solid fa-location-dot"></i>
+                Medina, Saudi Arabia
+              </p>
+              <p class="price">Price: <strong>200 SAR</strong> / night</p>
+              <a href="hotel.html?id=5" class="view-details">View Details</a>
+            </div>
+          </div> -->
+          <div
+            class="room-item"
+            data-location="Ajyad, Makkah 24231, Saudi Arabia"
+            data-price="220 SAR"
+          >
+          <div class="image-grid">
+            <img
+              src="images/plainOUD.jpg"
+              alt="Room 1"
+              class="grid-image large"
+            />
+            <img
+              src="images/GPM.png"
+              alt="Room 2"
+              class="grid-image small"
+            />
+            <img
+            src="images/SHAZArp3.jpg"
+            alt="Room 3"
+              class="grid-image small"
+            />
+            <div style="position: relative">
+              <img
+              src="images/Fares3.jpg"
+                alt="Room 4"
+                class="grid-image small"
+              />
+              <div
+                class="toggle-button"
+                onclick="openModal([ 'images/GPB.png', 'images/GPM.png', 'images/SHAZArp3.jpg'])"
+              >
+                +
+              </div>
+            </div>
+          </div>
+          <div class="details">
+            <h2>wardet Al Rayan Hotel</h2>
+            <p>
+              <strong><i class="fa-solid fa-location-crosshairs"></i></strong>
+              Madina, Saudi Arabia
+            </p>
+            <p><strong>Distance from Haram:</strong> 500 meters</p>
+            <p><strong>Rating:</strong> <span class="rating">★★★★☆</span></p>
+            <p class="price">
+              <strong><i class="fa-solid fa-hand-holding-dollar"></i></strong>
+              <span class="dollar-sign">220 SAR</span> per night
+            </p>
+            <p>
+              <strong><i class="fa-solid fa-caret-up"></i>Amenities:</strong>
+              Free Wi-Fi, Pool, Spa, Gym, Complimentary Breakfast
+            </p>
+            <div class="buttons">
+              <a href="hotel.html?id=10" class="view-details">View Details</a>
+              <button class="more-details-button2">Book Now</button>
+            </div>
+          </div> 
+          </div>
+
+        </div>
+        <div>
+
+
+        </div>
+        <button class="scroll-btn scroll-right">&#10095;</button>
+      </div>
+      </div>
+    </section>
+
+    <section id="Contact">
+      <h1>Contact Us</h1>
+      <div class="contact-form">
+        <label for="Name">Name</label>
+        <input type="text" placeholder="Name" required />
+        <label for="Email">Email</label>
+        <input type="email" placeholder="Email" required />
+        <label for="Phone">Phone</label>
+        <input type="tel" placeholder="Phone" required />
+        <label for="Address">Address</label>
+        <textarea
+          id="Address"
+          placeholder="Enter your address"
+          style="border-radius: 5px"
+        ></textarea>
+        <button type="button">Submit</button>
+      </div>
+    </section>
+
+    <section id="About">
+      <div class="footer">
+        <div class="connect">
+          <h2>Connect With Us</h2>
+          <ul>
+            <li><h4>Facebook</h4></li>
+            <li><h4>Twitter</h4></li>
+            <li><h4>Instagram</h4></li>
+            <li><h4>WhatsApp</h4></li>
+          </ul>
+        </div>
+
+        <div class="support">
+          <h2>Support</h2>
+          <ul>
+            <li><a href="Faqs.html" target="_blank">FAQ's</a></li>
+            <li><a href="#Rooms" target="_blank">Rooms</a></li>
+            <li><h4>Contact</h4></li>
+            <li><h4>Privacy & Policy</h4></li>
+          </ul>
+        </div>
+
+        <div class="more">
+          <h2>More</h2>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#Rooms">Rooms</a></li>
+            <li><a href="#Contact">Contact</a></li>
+            <li><a href="#About">About</a></li>
+          </ul>
+        </div>
+
+        <div class="additional">
+          <h2>Additional Info</h2>
+          <ul>
+            <li><h4>Blog</h4></li>
+            <li><h4>Testimonials</h4></li>
+            <li><h4>Careers</h4></li>
+            <li><h4>Terms of Service</h4></li>
+          </ul>
+        </div>
+      </div>
+
+      <hr />
+
+      <p class="copy">
+        @2025 ATWAH INTERNATIONAL | Privacy Policy | Cookie Policy | Privacy
+        Support
+      </p>
+    </section>
+    <a
+      href="https://wa.me/966576989556?text=السلام%20عليكم%20ورحمة%20الله%20وبركاته%20%20I%20have%20an%20enquiry%20regarding%20room%20bookings.%20Could%20you%20please%20assist%20me?%20جزاك%20الله%20خيرا"
+      class="whatsapp-button"
+      target="_blank"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <div id="myModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div class="modal-content" id="modalContent">
+      </div>
+    </div>
+    <script src="script1.js"></script>
+
+    <script>
+      function openModal(images) {
+        const modalContent = document.getElementById("modalContent");
+        modalContent.innerHTML = ""; 
+        images.forEach((image) => {
+          const imgElement = document.createElement("img");
+          imgElement.src = image;
+          imgElement.alt = "Room Image";
+          modalContent.appendChild(imgElement);
+        });
+        document.getElementById("myModal").style.display = "block";
+      }
+
+      function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) {
+          closeModal();
+        }
+      };
+    </script>
+  </body>
+</html>
